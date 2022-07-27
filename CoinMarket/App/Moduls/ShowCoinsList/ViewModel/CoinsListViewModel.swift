@@ -10,6 +10,8 @@ import Foundation
 protocol CoinsListViewModelDelegate: AnyObject {
     func showError(message: String)
     func updateTableView()
+    func hideProperties()
+    func showProperties()
 }
 
 class CoinsListViewModel {
@@ -30,25 +32,16 @@ class CoinsListViewModel {
     
     func getCoins(){
         self.coinsData = []
+        self.delegate?.hideProperties()
         self.delegateSpinner?.showSpinner()
         service?.getCoinsList(onComplete: { coins in
             self.coinsData = coins
             self.delegateSpinner?.hideSpinner()
             self.delegate?.updateTableView()
+            self.delegate?.showProperties()
         }, onError: { error in
             self.delegate?.showError(message: error)
-        })
-    }
-    
-    func bjd() {
-        self.coinsData = []
-        self.delegateSpinner?.showSpinner()
-        service?.getCoinsList(onComplete: { coins in
-            self.coinsData = coins
-            self.delegateSpinner?.hideSpinner()
-            self.delegate?.updateTableView()
-        }, onError: { error in
-            self.delegate?.showError(message: error)
+            self.delegate?.showProperties()
         })
     }
     

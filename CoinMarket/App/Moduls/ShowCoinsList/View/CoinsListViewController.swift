@@ -109,6 +109,18 @@ extension CoinsListViewController: UITableViewDelegate, UITableViewDataSource {
 extension CoinsListViewController: CoinsListViewModelDelegate, SpinnerLoading {
 
 //    CoinsListViewModelDelegate
+    func hideProperties() {
+        [tableView].forEach { view in
+            view.isHidden = true
+        }
+    }
+    
+    func showProperties() {
+        [tableView].forEach { view in
+            view.isHidden = false
+        }
+    }
+    
     func updateTableView() {
         tableView.reloadData()
     }
